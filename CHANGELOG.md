@@ -8,6 +8,14 @@ This project follows [Semantic Versioning](https://semver.org/):
 - **MINOR** (0.X.0) — new features, backwards compatible
 - **PATCH** (0.0.X) — bug fixes, performance improvements, translations
 
+## [1.1.0] - 2026-02-25
+
+### Changed
+- All SQL queries now use `%i` identifier placeholder for table names (WordPress 6.2+)
+- Minimum WordPress version bumped from 5.6 to 6.2 (97%+ of active installs)
+- Removed all `phpcs:ignore` workarounds for `PluginCheck.Security.DirectDB.UnescapedDBParameter`
+- Clean Plugin Check scan — proper escaping instead of annotations
+
 ## [1.0.2] - 2026-02-25
 
 ### Fixed
@@ -38,6 +46,7 @@ This project follows [Semantic Versioning](https://semver.org/):
 - Clean uninstall (drops table on plugin deletion)
 - Full i18n support with POT file
 
+[1.1.0]: https://github.com/ctala/lean-redirects/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/ctala/lean-redirects/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/ctala/lean-redirects/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/ctala/lean-redirects/releases/tag/v1.0.0

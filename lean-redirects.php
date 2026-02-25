@@ -3,8 +3,8 @@
  * Plugin Name: Lean Redirects
  * Plugin URI:  https://cristiantala.com/herramientas/lean-redirects/
  * Description: Ultra-lightweight 301/302/307 redirects. One indexed DB query per request. No bloat.
- * Version:     1.0.2
- * Requires at least: 5.6
+ * Version:     1.1.0
+ * Requires at least: 6.2
  * Requires PHP: 7.4
  * Author:      Cristian Tala
  * Author URI:  https://cristiantala.com
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LEAN_REDIRECTS_VERSION', '1.0.2' );
+define( 'LEAN_REDIRECTS_VERSION', '1.1.0' );
 define( 'LEAN_REDIRECTS_DB_TABLE', 'lean_redirects' );
 define( 'LEAN_REDIRECTS_FILE', __FILE__ );
 
@@ -66,6 +66,7 @@ function lean_redirects_ensure_table() {
 
 	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
+	// dbDelta requires the full CREATE TABLE statement with the table name inline.
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange
 	dbDelta(
 		"CREATE TABLE {$table} (
@@ -111,7 +112,8 @@ function lean_redirects_process() {
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	$row = $wpdb->get_row(
 		$wpdb->prepare(
-			"SELECT id, url_to, code FROM {$table} WHERE active = 1 AND ( url_from = %s OR url_from = %s ) LIMIT 1", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+			'SELECT id, url_to, code FROM %i WHERE active = 1 AND ( url_from = %s OR url_from = %s ) LIMIT 1',
+			$table,
 			$path,
 			$path . '/'
 		)
@@ -125,7 +127,8 @@ function lean_redirects_process() {
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE {$table} SET hits = hits + 1 WHERE id = %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+			'UPDATE %i SET hits = hits + 1 WHERE id = %d',
+			$table,
 			$row->id
 		)
 	);
@@ -236,7 +239,8 @@ function lean_redirects_process_admin_actions() {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE {$table} SET active = 1 - active WHERE id = %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				'UPDATE %i SET active = 1 - active WHERE id = %d',
+				$table,
 				intval( $_GET['lean_toggle'] )
 			)
 		);
@@ -300,7 +304,8 @@ function lean_redirects_admin_page() {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$total = (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(*) FROM {$table} WHERE url_from LIKE %s OR url_to LIKE %s OR note LIKE %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				'SELECT COUNT(*) FROM %i WHERE url_from LIKE %s OR url_to LIKE %s OR note LIKE %s',
+				$table,
 				$like,
 				$like,
 				$like
@@ -309,7 +314,8 @@ function lean_redirects_admin_page() {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT * FROM {$table} WHERE url_from LIKE %s OR url_to LIKE %s OR note LIKE %s ORDER BY hits DESC, id DESC LIMIT %d OFFSET %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				'SELECT * FROM %i WHERE url_from LIKE %s OR url_to LIKE %s OR note LIKE %s ORDER BY hits DESC, id DESC LIMIT %d OFFSET %d',
+				$table,
 				$like,
 				$like,
 				$like,
@@ -318,28 +324,26 @@ function lean_redirects_admin_page() {
 			)
 		);
 	} else {
-		// Table name is a safe internal constant; no user input in this query.
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-		$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$total = (int) $wpdb->get_var(
+			$wpdb->prepare( 'SELECT COUNT(*) FROM %i', $table )
+		);
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT * FROM {$table} ORDER BY hits DESC, id DESC LIMIT %d OFFSET %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				'SELECT * FROM %i ORDER BY hits DESC, id DESC LIMIT %d OFFSET %d',
+				$table,
 				$per_page,
 				$offset
 			)
 		);
 	}
 
-	// Table name is a safe internal constant (prefix + hardcoded string).
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	$active_count = (int) $wpdb->get_var(
-		$wpdb->prepare(
-			"SELECT COUNT(*) FROM {$table} WHERE active = %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-			1
-		)
+		$wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE active = %d', $table, 1 )
 	);
-	$pages        = (int) ceil( $total / $per_page );
+	$pages = (int) ceil( $total / $per_page );
 
 	// Render the admin template.
 	// When used as mu-plugin, views may be in a subdirectory.
@@ -427,10 +431,10 @@ function lean_redirects_register_api() {
  */
 function lean_redirects_api_list() {
 	global $wpdb;
-	$t = lean_redirects_table_name();
-	// Table name is a safe internal constant.
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-	return $wpdb->get_results( "SELECT * FROM {$t} ORDER BY id DESC" );
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+	return $wpdb->get_results(
+		$wpdb->prepare( 'SELECT * FROM %i ORDER BY id DESC', lean_redirects_table_name() )
+	);
 }
 
 /**
@@ -456,8 +460,10 @@ function lean_redirects_api_add( $request ) {
 		array( '%s', '%s', '%d', '%d', '%s' )
 	);
 
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-	$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" );
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+	$total = (int) $wpdb->get_var(
+		$wpdb->prepare( 'SELECT COUNT(*) FROM %i', $table )
+	);
 	return array( 'ok' => true, 'total' => $total );
 }
 

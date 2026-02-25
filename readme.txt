@@ -1,10 +1,10 @@
 === Lean Redirects ===
 Contributors: ctala
 Tags: redirect, 301, 302, seo, lightweight
-Requires at least: 5.6
+Requires at least: 6.2
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,11 +113,16 @@ Yes. Requires authentication with a user that has `manage_options` capability.
 
 == Changelog ==
 
+= 1.1.0 =
+* All SQL queries now use `%i` identifier placeholder for table names (proper escaping, zero warnings)
+* Requires WordPress 6.2+ (97%+ of active installs)
+* Removed all `phpcs:ignore` workarounds for DirectDB/UnescapedDBParameter
+* Clean Plugin Check scan
+
 = 1.0.2 =
 * Fix: All Plugin Check warnings resolved with proper phpcs:ignore annotations
 * Fix: Template variables use full `lean_redirects_` prefix
 * Fix: NonceVerification annotations for read-only GET params (search/pagination)
-* Tested up to WordPress 6.9
 
 = 1.0.1 =
 * Fix: Escape output in admin header (absint for active/total counts)

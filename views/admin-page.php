@@ -169,7 +169,8 @@ global $wpdb;
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$lean_redirects_all_active = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT url_from, url_to, code FROM {$table} WHERE active = %d ORDER BY id", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					'SELECT url_from, url_to, code FROM %i WHERE active = %d ORDER BY id',
+					$table,
 					1
 				)
 			);
