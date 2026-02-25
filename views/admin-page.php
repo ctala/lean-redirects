@@ -27,7 +27,7 @@ global $wpdb;
 		<small style="font-weight:normal;color:#666;">
 			<?php
 			/* translators: 1: active redirect count, 2: total redirect count */
-			printf( esc_html__( '%1$d active / %2$d total', 'lean-redirects' ), intval( $active_count ), intval( $total ) );
+			printf( esc_html__( '%1$d active / %2$d total', 'lean-redirects' ), absint( $active_count ), absint( $total ) );
 			?>
 		</small>
 	</h1>
@@ -92,29 +92,29 @@ global $wpdb;
 				</td>
 			</tr>
 		<?php endif; ?>
-		<?php foreach ( $rows as $r ) :
-			$toggle_url = wp_nonce_url(
-				add_query_arg( array( 'page' => 'lean-redirects', 'lean_toggle' => $r->id ), admin_url( 'options-general.php' ) ),
+		<?php foreach ( $rows as $lean_r ) :
+			$lean_toggle_url = wp_nonce_url(
+				add_query_arg( array( 'page' => 'lean-redirects', 'lean_toggle' => $lean_r->id ), admin_url( 'options-general.php' ) ),
 				'lean_redirects_toggle'
 			);
-			$delete_url = wp_nonce_url(
-				add_query_arg( array( 'page' => 'lean-redirects', 'lean_delete' => $r->id ), admin_url( 'options-general.php' ) ),
+			$lean_delete_url = wp_nonce_url(
+				add_query_arg( array( 'page' => 'lean-redirects', 'lean_delete' => $lean_r->id ), admin_url( 'options-general.php' ) ),
 				'lean_redirects_delete'
 			);
 		?>
-			<tr style="<?php echo $r->active ? '' : 'opacity:0.5;'; ?>">
-				<td><code style="font-size:12px;"><?php echo esc_html( $r->url_from ); ?></code></td>
-				<td><code style="font-size:12px;"><?php echo esc_html( $r->url_to ); ?></code></td>
-				<td><?php echo intval( $r->code ); ?></td>
-				<td><?php echo esc_html( number_format_i18n( $r->hits ) ); ?></td>
-				<td style="font-size:12px;color:#666;"><?php echo esc_html( $r->note ); ?></td>
+			<tr style="<?php echo $lean_r->active ? '' : 'opacity:0.5;'; ?>">
+				<td><code style="font-size:12px;"><?php echo esc_html( $lean_r->url_from ); ?></code></td>
+				<td><code style="font-size:12px;"><?php echo esc_html( $lean_r->url_to ); ?></code></td>
+				<td><?php echo intval( $lean_r->code ); ?></td>
+				<td><?php echo esc_html( number_format_i18n( $lean_r->hits ) ); ?></td>
+				<td style="font-size:12px;color:#666;"><?php echo esc_html( $lean_r->note ); ?></td>
 				<td>
-					<a href="<?php echo esc_url( $toggle_url ); ?>">
-						<?php echo $r->active ? '✅' : '❌'; ?>
+					<a href="<?php echo esc_url( $lean_toggle_url ); ?>">
+						<?php echo $lean_r->active ? '✅' : '❌'; ?>
 					</a>
 				</td>
 				<td>
-					<a href="<?php echo esc_url( $delete_url ); ?>"
+					<a href="<?php echo esc_url( $lean_delete_url ); ?>"
 					   onclick="return confirm('<?php echo esc_js( __( 'Delete this redirect?', 'lean-redirects' ) ); ?>')"
 					   style="color:#a00;">
 						<?php esc_html_e( 'Delete', 'lean-redirects' ); ?>
@@ -167,7 +167,7 @@ global $wpdb;
 			<h3><?php esc_html_e( 'Export', 'lean-redirects' ); ?></h3>
 			<?php
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$all_active = $wpdb->get_results(
+			$lean_all_active = $wpdb->get_results(
 				$wpdb->prepare(
 					"SELECT url_from, url_to, code FROM {$table} WHERE active = %d ORDER BY id", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 					1
@@ -175,8 +175,8 @@ global $wpdb;
 			);
 			?>
 			<textarea readonly rows="4" cols="50" style="font-family:monospace;font-size:12px;"><?php
-				foreach ( $all_active as $r ) {
-					echo esc_textarea( "{$r->url_from},{$r->url_to},{$r->code}" ) . "\n";
+				foreach ( $lean_all_active as $lean_r ) {
+					echo esc_textarea( "{$lean_r->url_from},{$lean_r->url_to},{$lean_r->code}" ) . "\n";
 				}
 			?></textarea>
 		</div>
