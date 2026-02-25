@@ -335,7 +335,9 @@ function lean_redirects_admin_page() {
 	$pages        = (int) ceil( $total / $per_page );
 
 	// Render the admin template.
-	include __DIR__ . '/views/admin-page.php';
+	// When used as mu-plugin, views may be in a subdirectory.
+	$views_dir = defined( 'LEAN_REDIRECTS_VIEWS_DIR' ) ? LEAN_REDIRECTS_VIEWS_DIR : __DIR__ . '/views';
+	include $views_dir . '/admin-page.php';
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
