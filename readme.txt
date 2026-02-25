@@ -4,7 +4,7 @@ Tags: redirect, 301, 302, seo, lightweight
 Requires at least: 5.6
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,11 @@ Yes. Requires authentication with a user that has `manage_options` capability.
 1. Main admin screen — manage all redirects with hit counter, search, toggle, and pagination
 
 == Changelog ==
+
+= 1.0.1 =
+* Fix: Escape output in admin header (absint for active/total counts)
+* Fix: Prefix all template variables to pass Plugin Check naming conventions
+* Tested up to WordPress 6.9
 
 = 1.0.0 =
 * Initial release
