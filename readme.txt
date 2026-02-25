@@ -109,9 +109,7 @@ Yes. Requires authentication with a user that has `manage_options` capability.
 
 == Screenshots ==
 
-1. Main admin screen showing redirects with hit counter and search
-2. Adding a new redirect
-3. CSV import/export
+1. Main admin screen — manage all redirects with hit counter, search, toggle, and pagination
 
 == Changelog ==
 
@@ -130,3 +128,16 @@ Yes. Requires authentication with a user that has `manage_options` capability.
 
 = 1.0.0 =
 Initial release.
+
+== About the Author ==
+
+Built by [Cristian Tala](https://cristiantala.com) — entrepreneur, angel investor, and efficiency nerd based in Chile.
+
+* 🌐 [cristiantala.com](https://cristiantala.com) — Blog about tech, startups, and automation
+* 💼 [LinkedIn](https://www.linkedin.com/in/ctala/)
+* 🐦 [X / Twitter](https://x.com/naitus)
+* 📸 [Instagram](https://www.instagram.com/cristiantalasanchez/)
+* 🎙️ [YouTube](https://www.youtube.com/@ecosistemastartup)
+* 🛠️ [More tools](https://cristiantala.com/herramientas/) — Free utilities for WordPress
+
+Found a bug? Have a feature request? [Open an issue on GitHub](https://github.com/ctala/lean-redirects/issues).

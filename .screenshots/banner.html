@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lean Redirects Banner</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1544px; height: 500px; overflow: hidden; }
+.banner {
+  width: 1544px;
+  height: 500px;
+  background: linear-gradient(135deg, #1d2327 0%, #2c3338 40%, #1d2327 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+/* Subtle grid pattern */
+.banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.left {
+  position: relative;
+  z-index: 1;
+  max-width: 650px;
+}
+.left h1 {
+  font-size: 58px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+.left h1 span {
+  color: #72aee6;
+}
+.left p {
+  font-size: 22px;
+  color: #a7aaad;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.badge {
+  display: inline-block;
+  background: rgba(114,174,230,.15);
+  border: 1px solid rgba(114,174,230,.3);
+  color: #72aee6;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.right {
+  position: relative;
+  z-index: 1;
+}
+.code-block {
+  background: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 30px 35px;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 15px;
+  line-height: 2;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  min-width: 420px;
+}
+.code-block .comment { color: #6a737d; }
+.code-block .func { color: #79c0ff; }
+.code-block .str { color: #a5d6ff; }
+.code-block .num { color: #f9826c; }
+.code-block .keyword { color: #ff7b72; }
+.code-block .var { color: #ffa657; }
+.code-block .plain { color: #c9d1d9; }
+
+/* Decorative elements */
+.dot-accent {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(114,174,230,.08) 0%, transparent 70%);
+  top: -100px;
+  right: -50px;
+}
+.dot-accent-2 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(114,174,230,.05) 0%, transparent 70%);
+  bottom: -50px;
+  left: 100px;
+}
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="dot-accent"></div>
+  <div class="dot-accent-2"></div>
+  <div class="left">
+    <h1>Lean <span>Redirects</span></h1>
+    <p>The redirect plugin that does nothing else.<br>One indexed query. Zero bloat. No lock-in.</p>
+    <span class="badge">~475 LINES OF CODE • GPLv2</span>
+  </div>
+  <div class="right">
+    <div class="code-block">
+      <span class="comment">// That's it. The entire redirect logic.</span><br>
+      <span class="var">$row</span> <span class="plain">= </span><span class="var">$wpdb</span><span class="plain">-></span><span class="func">get_row</span><span class="plain">(</span><br>
+      <span class="plain">&nbsp;&nbsp;</span><span class="var">$wpdb</span><span class="plain">-></span><span class="func">prepare</span><span class="plain">(</span><br>
+      <span class="plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="str">"SELECT url_to, code</span><br>
+      <span class="plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="str">FROM {$table}</span><br>
+      <span class="plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="str">WHERE url_from = %s</span><br>
+      <span class="plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="str">LIMIT 1"</span><span class="plain">,</span><br>
+      <span class="plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="var">$path</span><br>
+      <span class="plain">&nbsp;&nbsp;)</span><br>
+      <span class="plain">);</span><br>
+      <br>
+      <span class="keyword">wp_redirect</span><span class="plain">( </span><span class="var">$row</span><span class="plain">->url_to, </span><span class="var">$row</span><span class="plain">->code );</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

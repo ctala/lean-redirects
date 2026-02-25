@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lean Redirects - Main Screen</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #f0f0f1; color: #1d2327; font-size: 13px; }
+.wrap { max-width: 1100px; margin: 20px auto; padding: 20px; }
+h1 { font-size: 23px; font-weight: 400; margin-bottom: 15px; color: #1d2327; }
+h1 small { font-weight: normal; color: #666; font-size: 14px; }
+
+/* WP Admin Header Bar */
+.admin-bar { background: #1d2327; height: 32px; display: flex; align-items: center; padding: 0 10px; }
+.admin-bar span { color: #c3c4c7; font-size: 13px; margin-right: 15px; }
+.admin-bar .site { color: #72aee6; }
+
+/* Search */
+.search-box { margin-bottom: 15px; }
+.search-box input[type="text"] { padding: 5px 8px; border: 1px solid #8c8f94; border-radius: 4px; width: 280px; font-size: 13px; }
+.button { background: #f0f0f1; border: 1px solid #0071a1; color: #0071a1; padding: 4px 12px; border-radius: 3px; font-size: 13px; cursor: pointer; text-decoration: none; display: inline-block; }
+.button-primary { background: #2271b1; border-color: #2271b1; color: #fff; }
+
+/* Add form */
+.add-form { background: #fff; padding: 15px; margin-bottom: 15px; border: 1px solid #c3c4c7; border-radius: 4px; }
+.add-form strong { font-size: 13px; }
+.add-form input[type="text"] { padding: 4px 8px; border: 1px solid #8c8f94; border-radius: 3px; font-size: 13px; }
+.add-form select { padding: 4px 8px; border: 1px solid #8c8f94; border-radius: 3px; font-size: 13px; }
+.arrow { margin: 0 8px; font-size: 16px; color: #666; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #c3c4c7; margin-bottom: 15px; }
+thead { background: #f6f7f7; }
+th { text-align: left; padding: 10px 12px; border-bottom: 1px solid #c3c4c7; font-weight: 600; font-size: 13px; }
+td { padding: 10px 12px; border-bottom: 1px solid #f0f0f1; font-size: 13px; }
+tr:nth-child(even) { background: #f6f7f7; }
+code { background: #f0f0f1; padding: 2px 6px; border-radius: 3px; font-size: 12px; color: #1d2327; }
+.inactive { opacity: 0.5; }
+.hits { font-weight: 600; color: #2271b1; }
+.note { color: #666; font-size: 12px; }
+.delete-link { color: #b32d2e; text-decoration: none; font-size: 12px; }
+.toggle { text-decoration: none; font-size: 16px; }
+
+/* Footer */
+.footer { color: #999; font-size: 12px; margin-top: 20px; padding-top: 10px; border-top: 1px solid #ddd; }
+.footer a { color: #2271b1; text-decoration: none; }
+
+/* Import/Export */
+.ie-section { display: flex; gap: 30px; margin-top: 15px; }
+.ie-section h3 { font-size: 14px; margin-bottom: 8px; font-weight: 600; }
+.ie-section textarea { font-family: monospace; font-size: 11px; border: 1px solid #8c8f94; border-radius: 3px; padding: 8px; }
+
+/* Pagination */
+.pagination { text-align: right; padding: 8px 0; font-size: 13px; }
+.pagination a, .pagination span { display: inline-block; padding: 4px 10px; border: 1px solid #ddd; margin: 0 2px; border-radius: 3px; text-decoration: none; color: #2271b1; }
+.pagination .current { background: #2271b1; color: #fff; border-color: #2271b1; }
+</style>
+</head>
+<body>
+<div class="admin-bar">
+  <span class="site">🏠 My WordPress Site</span>
+  <span>Settings → Redirects</span>
+</div>
+<div class="wrap">
+  <h1>Lean Redirects <small>12 active / 14 total</small></h1>
+  
+  <div class="search-box">
+    <input type="text" placeholder="Search redirects..." style="width:280px;">
+    <button class="button">Search</button>
+  </div>
+
+  <div class="add-form">
+    <strong>Add redirect:</strong><br style="margin-bottom:8px;">
+    <div style="margin-top:8px;">
+      <input type="text" placeholder="/old/path/" style="width:200px;">
+      <span class="arrow">→</span>
+      <input type="text" placeholder="/new/path/ or https://..." style="width:200px;">
+      <select>
+        <option>301 Permanent</option>
+        <option>302 Temporary</option>
+        <option>307 Temporary (strict)</option>
+      </select>
+      <input type="text" placeholder="Note (optional)" style="width:140px;">
+      <button class="button button-primary">Add</button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>Code</th>
+        <th>Hits</th>
+        <th>Note</th>
+        <th>Active</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/blog/old-seo-guide/</code></td>
+        <td><code>/blog/complete-seo-guide-2026/</code></td>
+        <td>301</td>
+        <td class="hits">2,847</td>
+        <td class="note">SEO migration Jan 2026</td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr>
+        <td><code>/services/</code></td>
+        <td><code>/what-we-do/</code></td>
+        <td>301</td>
+        <td class="hits">1,523</td>
+        <td class="note">Rebrand Q4 2025</td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr>
+        <td><code>/webinar-replay/</code></td>
+        <td><code>https://youtube.com/watch?v=abc123</code></td>
+        <td>302</td>
+        <td class="hits">891</td>
+        <td class="note">Temporary — expires March</td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr>
+        <td><code>/category/tutorials/</code></td>
+        <td><code>/learn/</code></td>
+        <td>301</td>
+        <td class="hits">756</td>
+        <td class="note">Category restructure</td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr>
+        <td><code>/pricing-2025/</code></td>
+        <td><code>/pricing/</code></td>
+        <td>301</td>
+        <td class="hits">412</td>
+        <td class="note"></td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr>
+        <td><code>/free-ebook/</code></td>
+        <td><code>/resources/ebook-startup-guide/</code></td>
+        <td>301</td>
+        <td class="hits">389</td>
+        <td class="note">Lead magnet update</td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr>
+        <td><code>/newsletter/</code></td>
+        <td><code>/subscribe/</code></td>
+        <td>301</td>
+        <td class="hits">234</td>
+        <td class="note"></td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr class="inactive">
+        <td><code>/black-friday/</code></td>
+        <td><code>/offers/black-friday-2025/</code></td>
+        <td>302</td>
+        <td class="hits">1,102</td>
+        <td class="note">Seasonal — reactivate Nov</td>
+        <td><a class="toggle">❌</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr>
+        <td><code>/about-us/</code></td>
+        <td><code>/about/</code></td>
+        <td>301</td>
+        <td class="hits">198</td>
+        <td class="note">URL cleanup</td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+      <tr>
+        <td><code>/wp-content/uploads/guide.pdf</code></td>
+        <td><code>/resources/guide-2026.pdf</code></td>
+        <td>301</td>
+        <td class="hits">87</td>
+        <td class="note">PDF moved</td>
+        <td><a class="toggle">✅</a></td>
+        <td><a class="delete-link">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span class="current">1</span>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">→</a>
+  </div>
+
+  <hr style="border:none;border-top:1px solid #ddd;margin:20px 0;">
+
+  <div class="ie-section">
+    <div>
+      <h3>Import CSV</h3>
+      <textarea rows="4" cols="45" placeholder="/old/path/,/new/path/,301">/promo/,/offers/spring-2026/,302
+/old-landing/,/new-landing/,301
+/temp/,https://example.com/,307</textarea>
+      <br>
+      <button class="button" style="margin-top:5px;">Import</button>
+      <span style="color:#666;font-size:11px;margin-left:5px;">Format: from,to,code (code optional, defaults to 301)</span>
+    </div>
+    <div>
+      <h3>Export</h3>
+      <textarea rows="4" cols="45" readonly>/blog/old-seo-guide/,/blog/complete-seo-guide-2026/,301
+/services/,/what-we-do/,301
+/webinar-replay/,https://youtube.com/watch?v=abc123,302
+/category/tutorials/,/learn/,301
+/pricing-2025/,/pricing/,301</textarea>
+    </div>
+  </div>
+
+  <div class="footer">
+    Lean Redirects v1.0.0 — Made with ❤️ from Chile by <a href="https://cristiantala.com" target="_blank">cristiantala.com</a>
+  </div>
+</div>
+</body>
+</html>
