@@ -27,7 +27,7 @@ global $wpdb;
 		<small style="font-weight:normal;color:#666;">
 			<?php
 			/* translators: 1: active redirect count, 2: total redirect count */
-			printf( esc_html__( '%1$d active / %2$d total', 'lean-redirects' ), $active_count, $total );
+			printf( esc_html__( '%1$d active / %2$d total', 'lean-redirects' ), intval( $active_count ), intval( $total ) );
 			?>
 		</small>
 	</h1>
