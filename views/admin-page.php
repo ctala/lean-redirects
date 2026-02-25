@@ -167,7 +167,12 @@ global $wpdb;
 			<h3><?php esc_html_e( 'Export', 'lean-redirects' ); ?></h3>
 			<?php
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$all_active = $wpdb->get_results( "SELECT url_from, url_to, code FROM {$table} WHERE active = 1 ORDER BY id" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$all_active = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT url_from, url_to, code FROM {$table} WHERE active = %d ORDER BY id", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					1
+				)
+			);
 			?>
 			<textarea readonly rows="4" cols="50" style="font-family:monospace;font-size:12px;"><?php
 				foreach ( $all_active as $r ) {

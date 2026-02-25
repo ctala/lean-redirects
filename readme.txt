@@ -14,9 +14,13 @@ The redirect plugin that does nothing else. One indexed DB query. Zero JavaScrip
 
 Lean Redirects is the simplest way to manage 301, 302, and 307 redirects in WordPress.
 
-Most redirect plugins come loaded with features you don't need: 404 logging, analytics dashboards, regex engines, import wizards for 10 different formats, and upsells to premium versions. All of that adds overhead to every single page load on your site.
+**The problem with redirects inside SEO plugins:** Most SEO plugins (Yoast, Rank Math, AIOSEO) include redirects as a feature. Convenient, until you want to switch. Your redirects are trapped inside the plugin — that's vendor lock-in. Lean Redirects keeps your redirects independent, in their own table, completely decoupled from your SEO stack.
+
+**The problem with dedicated redirect plugins:** They come loaded with features you don't need — 404 logging, analytics dashboards, regex engines, import wizards for 10 different formats, and upsells to premium versions. All of that adds overhead to every single page load on your site.
 
 **Lean Redirects takes a different approach: do one thing, do it well, and get out of the way.**
+
+This plugin is for people who care about what runs on every page load. One function, one indexed query, zero bloat.
 
 = How it works =
 
@@ -51,6 +55,15 @@ Most redirect plugins come loaded with features you don't need: 404 logging, ana
 * ❌ No JavaScript frameworks
 * ❌ No custom CSS files
 * ❌ No external dependencies
+
+= How does it compare? =
+
+LOC = Lines of Code. Fewer lines mean less complexity, fewer potential bugs, and an easier security audit.
+
+* Redirection (2M+ installs): ~15,000 LOC — 404 logging, analytics, regex, 10 import formats
+* Safe Redirect Manager: ~3,000 LOC — regex, wildcards, hook-heavy
+* Simple 301 Redirects: ~500 LOC — converted to BetterLinks upsell
+* **Lean Redirects: ~475 LOC** — just redirects
 
 = Performance =
 

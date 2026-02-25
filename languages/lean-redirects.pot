@@ -1,0 +1,140 @@
+# Copyright (C) 2026 Cristian Tala
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Lean Redirects 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/ctala/lean-redirects/issues\n"
+"POT-Creation-Date: 2026-02-25T10:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: lean-redirects.php:168
+msgid "Lean Redirects"
+msgstr ""
+
+#: lean-redirects.php:169
+msgid "Redirects"
+msgstr ""
+
+#: lean-redirects.php:186
+msgid "Manage"
+msgstr ""
+
+#: lean-redirects.php:223
+msgid "Redirect added."
+msgstr ""
+
+#: lean-redirects.php:231
+msgid "Redirect deleted."
+msgstr ""
+
+#: lean-redirects.php:269
+#, php-format
+msgid "%d redirects imported."
+msgstr ""
+
+#: views/admin-page.php:26
+msgid "Lean Redirects"
+msgstr ""
+
+#: views/admin-page.php:30
+#, php-format
+msgid "%1$d active / %2$d total"
+msgstr ""
+
+#: views/admin-page.php:39
+msgid "Search redirects..."
+msgstr ""
+
+#: views/admin-page.php:40
+msgid "Search"
+msgstr ""
+
+#: views/admin-page.php:43
+msgid "Clear"
+msgstr ""
+
+#: views/admin-page.php:51
+msgid "Add redirect:"
+msgstr ""
+
+#: views/admin-page.php:61
+msgid "Permanent"
+msgstr ""
+
+#: views/admin-page.php:62
+msgid "Temporary"
+msgstr ""
+
+#: views/admin-page.php:63
+msgid "Temporary (strict)"
+msgstr ""
+
+#: views/admin-page.php:68
+msgid "Note (optional)"
+msgstr ""
+
+#: views/admin-page.php:71
+msgid "Add"
+msgstr ""
+
+#: views/admin-page.php:78
+msgid "From"
+msgstr ""
+
+#: views/admin-page.php:79
+msgid "To"
+msgstr ""
+
+#: views/admin-page.php:80
+msgid "Code"
+msgstr ""
+
+#: views/admin-page.php:81
+msgid "Hits"
+msgstr ""
+
+#: views/admin-page.php:82
+msgid "Note"
+msgstr ""
+
+#: views/admin-page.php:83
+msgid "Active"
+msgstr ""
+
+#: views/admin-page.php:91
+msgid "No redirects found."
+msgstr ""
+
+#: views/admin-page.php:118
+msgid "Delete this redirect?"
+msgstr ""
+
+#: views/admin-page.php:120
+msgid "Delete"
+msgstr ""
+
+#: views/admin-page.php:153
+msgid "Import CSV"
+msgstr ""
+
+#: views/admin-page.php:160
+msgid "Import"
+msgstr ""
+
+#: views/admin-page.php:162
+msgid "Format: from,to,code (code optional, defaults to 301)"
+msgstr ""
+
+#: views/admin-page.php:167
+msgid "Export"
+msgstr ""
+
+#: views/admin-page.php:192
+#, php-format
+msgid "Made with %1$s from Chile by %2$s"
+msgstr ""

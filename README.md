@@ -6,13 +6,24 @@ The redirect plugin that does nothing else.
 
 ## Why?
 
-| Plugin | Storage | Estimated LOC | Extras |
-|--------|---------|---------------|--------|
+### Why a separate plugin?
+
+Most SEO plugins (Yoast, Rank Math, AIOSEO) include redirects as a built-in feature. The problem? **You can't switch SEO plugins without losing all your redirects.** That's vendor lock-in.
+
+Lean Redirects keeps your redirects independent. Switch SEO plugins, switch themes, redesign your entire site — your redirects stay exactly where they are, in their own table, managed by ~475 lines of code that do nothing else.
+
+**This plugin is for people who care about what runs on every single page load.** Every plugin you install adds weight. Most redirect plugins load admin classes, analytics collectors, and upsell banners on every request — even on the frontend. Lean Redirects loads one function, runs one indexed query, and gets out of the way.
+
+> **What's LOC?** Lines of Code — the total number of lines in the plugin's PHP files.
+> Fewer lines = less complexity, fewer bugs, easier to audit. It's a rough but honest measure of how much a plugin is doing behind the scenes.
+
+| Plugin | Storage | LOC (est.) | Extras |
+|--------|---------|------------|--------|
 | Redirection (2M+ installs) | Custom table | ~15,000+ | 404 logging, analytics, Apache/Nginx export, groups, regex, 10 import formats |
 | Safe Redirect Manager | Custom Post Type | ~3,000 | Regex, wildcards, hook-heavy |
 | Simple 301 Redirects | wp_options | ~500 | Converted to BetterLinks upsell |
 | WP 301 Redirects | Custom table | ~5,000 | Freemium, licenses, 404 log |
-| **Lean Redirects** | **Indexed custom table** | **~300** | **Nothing. Just redirects.** |
+| **Lean Redirects** | **Indexed custom table** | **~475** | **Nothing. Just redirects.** |
 
 ## Features
 

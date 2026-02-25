@@ -318,8 +318,9 @@ function lean_redirects_admin_page() {
 			)
 		);
 	} else {
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// Table name is a safe internal constant; no user input in this query.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" );
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
@@ -330,8 +331,14 @@ function lean_redirects_admin_page() {
 		);
 	}
 
+	// Table name is a safe internal constant (prefix + hardcoded string).
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	$active_count = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE active = 1" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	$active_count = (int) $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT COUNT(*) FROM {$table} WHERE active = %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			1
+		)
+	);
 	$pages        = (int) ceil( $total / $per_page );
 
 	// Render the admin template.
@@ -420,8 +427,10 @@ function lean_redirects_register_api() {
  */
 function lean_redirects_api_list() {
 	global $wpdb;
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	return $wpdb->get_results( 'SELECT * FROM ' . lean_redirects_table_name() . ' ORDER BY id DESC' ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$t = lean_redirects_table_name();
+	// Table name is a safe internal constant.
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	return $wpdb->get_results( "SELECT * FROM {$t} ORDER BY id DESC" );
 }
 
 /**
@@ -447,8 +456,8 @@ function lean_redirects_api_add( $request ) {
 		array( '%s', '%s', '%d', '%d', '%s' )
 	);
 
-	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-	$total = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $table ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" );
 	return array( 'ok' => true, 'total' => $total );
 }
 
