@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Lean Redirects
- * Plugin URI:  https://cristiantala.com/herramientas/lean-redirects/
+ * Plugin URI:  https://github.com/ctala/lean-redirects
  * Description: Ultra-lightweight 301/302/307 redirects. One indexed DB query per request. No bloat.
  * Version:     1.1.0
  * Requires at least: 6.2
