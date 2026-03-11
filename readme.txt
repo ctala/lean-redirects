@@ -4,7 +4,7 @@ Tags: redirect, 301, 302, seo, lightweight
 Requires at least: 6.2
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,10 @@ Yes. Requires authentication with a user that has `manage_options` capability.
 1. Main admin screen — manage all redirects with hit counter, search, toggle, and pagination
 
 == Changelog ==
+
+= 1.1.1 =
+* Updated Plugin URI to public GitHub repository
+* Added proper copyright notice to LICENSE
 
 = 1.1.0 =
 * All SQL queries now use `%i` identifier placeholder for table names (proper escaping, zero warnings)

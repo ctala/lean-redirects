@@ -3,7 +3,7 @@
  * Plugin Name: Lean Redirects
  * Plugin URI:  https://github.com/ctala/lean-redirects
  * Description: Ultra-lightweight 301/302/307 redirects. One indexed DB query per request. No bloat.
- * Version:     1.1.0
+ * Version:     1.1.1
  * Requires at least: 6.2
  * Requires PHP: 7.4
  * Author:      Cristian Tala
