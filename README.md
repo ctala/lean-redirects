@@ -52,23 +52,30 @@ Lean Redirects keeps your redirects independent. Switch SEO plugins, switch them
 
 ## Installation
 
-### From WordPress.org
-
-1. Go to **Plugins → Add New**
-2. Search for "Lean Redirects"
-3. Install and activate
-
-### Manual
-
-1. Download the latest release
-2. Upload to `/wp-content/plugins/lean-redirects/`
-3. Activate in WordPress admin
-
-### WP-CLI
+### From WordPress.org (pending approval)
 
 ```bash
 wp plugin install lean-redirects --activate
 ```
+
+Or search "Lean Redirects" in **Plugins → Add New**.
+
+### Direct Download
+
+1. Download: **[lean-redirects.zip](https://assets.cristiantala.com/tools/lean-redirects.zip)**
+2. In wp-admin → **Plugins → Add New → Upload Plugin**
+3. Choose the zip, install, activate
+
+### From GitHub
+
+1. Go to [Releases](https://github.com/ctala/lean-redirects/releases) and download the latest `.zip`
+2. Upload via **Plugins → Add New → Upload Plugin**
+
+### Manual (FTP/SSH)
+
+1. Download and unzip `lean-redirects.zip`
+2. Upload `lean-redirects/` to `/wp-content/plugins/`
+3. Activate in **Plugins → Installed Plugins**
 
 ## Usage
 

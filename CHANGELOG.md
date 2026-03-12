@@ -8,6 +8,22 @@ This project follows [Semantic Versioning](https://semver.org/):
 - **MINOR** (0.X.0) — new features, backwards compatible
 - **PATCH** (0.0.X) — bug fixes, performance improvements, translations
 
+## [1.2.0] - 2026-03-12
+
+### Added
+- AGENT.md — Machine-readable documentation for AI agents (REST API schema, DB schema, common tasks)
+- Direct download link in README and readme.txt
+- Installation instructions for GitHub Releases and manual upload
+
+### Fixed
+- Version constant `LEAN_REDIRECTS_VERSION` synced with plugin header (was `1.1.0` when header said `1.1.1`)
+
+## [1.1.1] - 2026-03-11
+
+### Changed
+- Plugin URI updated to public GitHub repository
+- Added proper copyright notice to LICENSE
+
 ## [1.1.0] - 2026-02-25
 
 ### Changed
@@ -46,6 +62,8 @@ This project follows [Semantic Versioning](https://semver.org/):
 - Clean uninstall (drops table on plugin deletion)
 - Full i18n support with POT file
 
+[1.2.0]: https://github.com/ctala/lean-redirects/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/ctala/lean-redirects/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/ctala/lean-redirects/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/ctala/lean-redirects/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/ctala/lean-redirects/compare/v1.0.0...v1.0.1
